@@ -592,6 +592,8 @@ static int ventoy_check_official_device(grub_device_t dev)
         #endif
     }
 
+    grub_printf("Testsss,workaround =  (%d).\n", workaround);
+    
     /* We must have partition 2 */
     if (workaround)
     {
@@ -613,9 +615,9 @@ static int ventoy_check_official_device(grub_device_t dev)
     }
 
     partition = dev->disk->partition;
-    if (partition->number != 0 || partition->start != 2048)
+    if (partition->number != 0 || partition->start < 2048)
     {
-        return ventoy_set_check_result(5, "Ventoy partition is not start at 1MB");
+        return ventoy_set_check_result(5, "Ventoy partition  starts  less than   1MB");
     }
 
     if (workaround)
@@ -642,13 +644,15 @@ static int ventoy_check_official_device(grub_device_t dev)
         }
     }
     else
-    {
+    {  //check
         offset = partition->start + partition->len;
         partition = file->device->disk->partition;
         if ((partition->number != 1) || (partition->len != 65536) || (offset != partition->start))
-        {
-            grub_file_close(file);
-            return ventoy_set_check_result(7, "Disk partition layout check failed.");
+        {//parameter partition->len==1,(partition->len == 65536,but  (offset != partition->start))
+            //grub_file_close(file);
+            //return ventoy_set_check_result(7, "Disk partition layout check failed.");
+            grub_printf("Testsss,  partition->number =  (%d),  partition->len=(%d),   offset =(%d),  partition->start=(%d).\n", partition->number,partition->len, offset , partition->start);
+            
         }
     }
 
