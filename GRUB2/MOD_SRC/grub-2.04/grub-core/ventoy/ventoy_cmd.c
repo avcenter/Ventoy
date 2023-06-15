@@ -592,7 +592,7 @@ static int ventoy_check_official_device(grub_device_t dev)
         #endif
     }
 
-    grub_printf("Testsss,workaround =  (%d).\n", workaround);
+    //grub_printf("Testsss,workaround =  (%d).\n", workaround); 
     
     /* We must have partition 2 */
     if (workaround)
@@ -652,7 +652,7 @@ static int ventoy_check_official_device(grub_device_t dev)
             //grub_file_close(file);
             //return ventoy_set_check_result(7, "Disk partition layout check failed.");
             //grub_printf("Testsss,  partition->number =  (%d),  partition->len=(%d),   offset =(%d),  partition->start=(%d).\n", partition->number,partition->len, offset , partition->start);
-            grub_printf("Testsss,  partition->number =  (%d).\n", partition->number);
+            //grub_printf("Testsss,  partition->number =  (%d).\n", partition->number); 
         }
     }
 
