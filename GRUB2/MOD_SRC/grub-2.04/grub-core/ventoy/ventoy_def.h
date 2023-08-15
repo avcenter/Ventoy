@@ -1193,7 +1193,8 @@ int ventoy_unregister_all_cmd(void);
 int ventoy_chain_file_size(const char *path);
 int ventoy_chain_file_read(const char *path, int offset, int len, void *buf);
 
-#define VTOY_CMD_CHECK(a) if (33554432 != g_ventoy_disk_part_size[a]) ventoy_syscall0(exit)
+//修改3：程序中多处调用本函数检查VentoyEFI分区的大小，要求必须是32M。修改后EFI的大小只要大于32M就可以。
+#define VTOY_CMD_CHECK(a) if (33554432 > g_ventoy_disk_part_size[a]) ventoy_syscall0(exit)
 
 #define vtoy_theme_random_boot_second  0
 #define vtoy_theme_random_boot_day     1

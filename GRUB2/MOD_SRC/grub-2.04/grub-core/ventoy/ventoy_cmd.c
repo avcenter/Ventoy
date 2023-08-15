@@ -648,10 +648,9 @@ static int ventoy_check_official_device(grub_device_t dev)
         offset = partition->start + partition->len;
         partition = file->device->disk->partition;
         if ((partition->number != 1) || (partition->len != 65536) || (offset != partition->start))
-        {//parameter partition->len==1,(partition->len == 65536,but  (offset != partition->start))
+        {//修改1：parameter partition->len==1,(partition->len == 65536,but  (offset != partition->start))
             //grub_file_close(file);
             //return ventoy_set_check_result(7, "Disk partition layout check failed.");
-            //grub_printf("Testsss,  partition->number =  (%d),  partition->len=(%d),   offset =(%d),  partition->start=(%d).\n", partition->number,partition->len, offset , partition->start);
             //grub_printf("Testsss,  partition->number =  (%d).\n", partition->number); 
         }
     }
@@ -676,9 +675,9 @@ static int ventoy_check_official_device(grub_device_t dev)
 
         fs->fs_label(dev2, &label);
         if ((!label) || grub_strncmp("VTOYEFI", label, 7))
-        {
-            grub_device_close(dev2);
-            return ventoy_set_check_result(10, "Partition name is not VTOYEFI");
+        {	//修改2:判断EFI分区的label是否为VTOYEFI。
+            //grub_device_close(dev2);
+            //return ventoy_set_check_result(10, "Partition name is not VTOYEFI");
         }
 
         grub_device_close(dev2);    
